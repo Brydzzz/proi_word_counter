@@ -1,0 +1,5 @@
+.vscode/
+build/
+moby_dick.txt
+*.pdf
+.clang-format
