@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 class Entry {
    private:
@@ -8,7 +9,7 @@ class Entry {
 
    public:
     Entry() = default;
-    Entry(std::string const& word, unsigned int count);
+    Entry(std::string const& word, int count);
 
     void operator++(int);
     std::string const& operator*() const;
@@ -16,4 +17,4 @@ class Entry {
 };
 
 std::ostream& operator<<(std::ostream& os, Entry const& entry);
-std::ostream& operator>>(std::istream& in, Entry& entry);
+std::istream& operator>>(std::istream& is, Entry& entry);
