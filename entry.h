@@ -14,7 +14,6 @@ class entry {
     void operator++(int);
     std::string const& operator*() const;
     operator int() const;
+    friend std::ostream& operator<<(std::ostream& os, entry const& entry);
+    friend std::istream& operator>>(std::istream& is, entry& ent);
 };
-
-std::ostream& operator<<(std::ostream& os, entry const& entry);
-std::istream& operator>>(std::istream& is, entry& entry);

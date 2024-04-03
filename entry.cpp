@@ -18,12 +18,15 @@ std::ostream& operator<<(std::ostream& os, entry const& entry) {
 }
 
 std::istream& operator>>(std::istream& is, entry& ent) {
-    std::string value;
-    is >> value;
-    value.erase(0, 1);
-    std::string count;
-    is >> count;
-    count.pop_back();
-    ent = entry(value, std::stoi(count));
+    char left, right;
+    std::string word;
+    int count;
+    is >> left;
+    if (is.eof()) return is;
+    is >> word >> count >> right;
+    if (left != '[' || right != ']')
+        throw std::invalid_argument("Invalid entry in >> operator.");
+    ent.value = word;
+    ent.count = count;
     return is;
 }
