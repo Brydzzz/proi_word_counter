@@ -13,6 +13,7 @@ class word_counter {
 
     void add_word(std::string const& word);
     void add_words(std::istream& is);
+    void add_entry(entry const& ent);
     void clear();
 
     entry const& operator[](std::string const& word) const;

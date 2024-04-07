@@ -3,13 +3,18 @@
 std::vector<entry> word_counter::get_counter() const { return counter; }
 
 void word_counter::add_word(std::string const& word) {
+    entry ent(word, 1);
+    add_entry(ent);
+}
+
+void word_counter::add_entry(entry const& ent) {
     if (counter.size() == 0) {
-        counter.push_back(entry(word, 1));
+        counter.push_back(ent);
         return;
     }
 
     for (size_t i = 0; i < counter.size(); ++i) {
-        if (*counter[i] == word) {
+        if (*counter[i] == *ent) {
             counter[i]++;
             return;
         }
@@ -17,12 +22,12 @@ void word_counter::add_word(std::string const& word) {
 
     int insert_idx = counter.size();
     for (size_t i = counter.size() - 1; i >= 0; --i) {
-        if (*counter[i] > word)
+        if (*counter[i] > *ent)
             insert_idx = i;
         else
             break;
     }
-    counter.insert(counter.begin() + insert_idx, entry(word, 1));
+    counter.insert(counter.begin() + insert_idx, ent);
 }
 
 void word_counter::add_words(std::istream& is) {
@@ -36,7 +41,15 @@ void word_counter::clear() { counter.clear(); }
 
 std::ostream& operator<<(std::ostream& os, word_counter const& wc) {
     for (size_t i = 0; i < wc.counter.size(); ++i) {
-        os << wc.counter[i];
+        os << wc.counter[i] << '\n';
     }
     return os;
+}
+
+std::istream& operator>>(std::istream& is, word_counter& wc) {
+    entry ent;
+    while (is >> ent) {
+        wc.add_entry(ent);
+    }
+    return is;
 }

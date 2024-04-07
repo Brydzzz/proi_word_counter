@@ -119,3 +119,24 @@ TEST(word_counter_test, clear_test) {
     wc.clear();
     ASSERT_EQ(wc.get_counter().size(), 0);
 }
+
+TEST(word_counter_test, operator_out) {
+    word_counter wc;
+    std::stringstream words("hello world \n hello auto");
+    wc.add_words(words);
+    std::stringstream ss;
+    ss << wc;
+    ASSERT_EQ(ss.str(), "[auto 1]\n[hello 2]\n[world 1]\n");
+}
+
+TEST(word_counter_test, operator_in) {
+    word_counter wc;
+    std::stringstream ss("[auto 1]\n[hello 2]\n[world 1]\n");
+    ss >> wc;
+    ASSERT_EQ(*(wc.get_counter()[0]), "auto");
+    ASSERT_EQ(*(wc.get_counter()[1]), "hello");
+    ASSERT_EQ(*(wc.get_counter()[2]), "world");
+    ASSERT_EQ(int(wc.get_counter()[0]), 1);
+    ASSERT_EQ(int(wc.get_counter()[1]), 2);
+    ASSERT_EQ(int(wc.get_counter()[2]), 1);
+}
