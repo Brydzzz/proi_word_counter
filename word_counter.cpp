@@ -3,6 +3,7 @@
 std::vector<entry> word_counter::get_counter() const { return counter; }
 
 void word_counter::add_word(std::string const& word) {
+    if (word == "") return;
     entry ent(word, 1);
     add_entry(ent);
 }
@@ -21,7 +22,7 @@ void word_counter::add_entry(entry const& ent) {
     }
 
     int insert_idx = counter.size();
-    for (size_t i = counter.size() - 1; i >= 0; --i) {
+    for (int i = counter.size() - 1; i >= 0; --i) {
         if (*counter[i] > *ent)
             insert_idx = i;
         else
