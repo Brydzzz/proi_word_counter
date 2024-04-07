@@ -111,3 +111,11 @@ TEST(word_counter_test, add_words_stream_with_newlines) {
     ASSERT_EQ(int(wc.get_counter()[1]), 2);
     ASSERT_EQ(int(wc.get_counter()[2]), 1);
 }
+
+TEST(word_counter_test, clear_test) {
+    word_counter wc;
+    wc.add_word("hello");
+    ASSERT_EQ(wc.get_counter().size(), 1);
+    wc.clear();
+    ASSERT_EQ(wc.get_counter().size(), 0);
+}

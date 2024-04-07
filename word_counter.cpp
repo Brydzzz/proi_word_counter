@@ -32,6 +32,8 @@ void word_counter::add_words(std::istream& is) {
     }
 }
 
+void word_counter::clear() { counter.clear(); }
+
 std::ostream& operator<<(std::ostream& os, word_counter const& wc) {
     for (size_t i = 0; i < wc.counter.size(); ++i) {
         os << wc.counter[i];
