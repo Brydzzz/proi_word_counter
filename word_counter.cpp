@@ -57,6 +57,30 @@ entry& word_counter::operator[](std::string const& word) {
         throw std::invalid_argument("Word is not in counter.");
 }
 
+word_counter::lex_iterator word_counter::lex_begin() const {
+    return counter.begin();
+}
+word_counter::lex_iterator word_counter::lex_end() const {
+    return counter.end();
+}
+
+word_counter::lex_iterator word_counter::lex_iterator::operator++(int) {
+    auto retv = *this;
+    it++;
+    return retv;
+}
+
+word_counter::lex_iterator& word_counter::lex_iterator::operator++() {
+    ++it;
+    return *this;
+}
+
+entry const& word_counter::lex_iterator::operator*() const { return *it; }
+
+bool word_counter::lex_iterator::operator!=(lex_iterator const& wcit) const {
+    return it != wcit.it;
+}
+
 std::ostream& operator<<(std::ostream& os, word_counter const& wc) {
     for (size_t i = 0; i < wc.counter.size(); ++i) {
         os << wc.counter[i] << '\n';

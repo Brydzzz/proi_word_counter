@@ -19,7 +19,17 @@ class word_counter {
     entry const& operator[](std::string const& word) const;
     entry& operator[](std::string const& word);
 
-    class lex_iterator {};
+    class lex_iterator {
+        std::vector<entry>::const_iterator it;
+
+       public:
+        lex_iterator(std::vector<entry>::const_iterator vit) : it(vit) {}
+
+        lex_iterator operator++(int);
+        lex_iterator& operator++();
+        entry const& operator*() const;
+        bool operator!=(lex_iterator const& wcit) const;
+    };
     lex_iterator lex_begin() const;
     lex_iterator lex_end() const;
 
