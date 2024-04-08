@@ -114,10 +114,11 @@ TEST(word_counter_test, add_words_stream_with_newlines) {
 
 TEST(word_counter_test, clear_test) {
     word_counter wc;
-    wc.add_word("hello");
-    ASSERT_EQ(wc.get_counter().size(), 1);
+    std::stringstream ss("hello world \n hello auto");
+    wc.add_words(ss);
+    ASSERT_EQ(wc.get_counter().size(), 3);
     wc.clear();
-    ASSERT_EQ(wc.get_counter().size(), 0);
+    ASSERT_EQ(wc.get_counter().empty(), true);
 }
 
 TEST(word_counter_test, operator_out) {
