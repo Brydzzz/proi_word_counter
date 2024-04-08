@@ -1,5 +1,6 @@
 #include "word_counter.h"
 
+#include <algorithm>
 std::vector<entry> word_counter::get_counter() const { return counter; }
 
 void word_counter::add_word(std::string const& word) {
@@ -39,6 +40,22 @@ void word_counter::add_words(std::istream& is) {
 }
 
 void word_counter::clear() { counter.clear(); }
+
+entry const& word_counter::operator[](std::string const& word) const {
+    auto it = std::lower_bound(counter.begin(), counter.end(), word);
+    if (*(*it) == word)
+        return *it;
+    else
+        throw std::invalid_argument("Word is not in counter.");
+}
+
+entry& word_counter::operator[](std::string const& word) {
+    auto it = std::lower_bound(counter.begin(), counter.end(), word);
+    if (*(*it) == word)
+        return *it;
+    else
+        throw std::invalid_argument("Word is not in counter.");
+}
 
 std::ostream& operator<<(std::ostream& os, word_counter const& wc) {
     for (size_t i = 0; i < wc.counter.size(); ++i) {

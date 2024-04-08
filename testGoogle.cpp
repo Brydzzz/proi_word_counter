@@ -121,6 +121,21 @@ TEST(word_counter_test, clear_test) {
     ASSERT_EQ(wc.get_counter().empty(), true);
 }
 
+TEST(word_counter_test, index_operator) {
+    word_counter wc;
+    std::stringstream ss("hello world \n hello auto");
+    wc.add_words(ss);
+    ASSERT_EQ(*(wc["hello"]), "hello");
+    ASSERT_EQ(int(wc["hello"]), 2);
+}
+
+TEST(word_counter_test, index_operator_word_not_found) {
+    word_counter wc;
+    std::stringstream ss("hello world \n hello auto");
+    wc.add_words(ss);
+    ASSERT_THROW(wc["apple"], std::exception);
+}
+
 TEST(word_counter_test, operator_out) {
     word_counter wc;
     std::stringstream words("hello world \n hello auto");
