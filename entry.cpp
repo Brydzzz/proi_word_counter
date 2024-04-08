@@ -11,6 +11,10 @@ void entry::operator++(int) { count++; }
 
 entry::operator int() const { return count; }
 
+bool entry::operator<(std::string const& str_value) const {
+    return *(*this) < str_value;
+}
+
 std::ostream& operator<<(std::ostream& os, entry const& entry) {
     os << '[';
     os << *entry << ' ' << int(entry);
