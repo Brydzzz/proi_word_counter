@@ -81,6 +81,55 @@ bool word_counter::lex_iterator::operator!=(lex_iterator const& wcit) const {
     return it != wcit.it;
 }
 
+word_counter::freq_iterator word_counter::freq_begin() const {
+    std::vector<entry>::const_iterator biggest = counter.begin();
+    for (auto it = counter.begin(); it < counter.end(); ++it) {
+        if (int(*biggest) < int(*it)) {
+            biggest = it;
+        }
+    }
+    return freq_iterator(biggest, counter.begin(), counter.end());
+}
+
+word_counter::freq_iterator word_counter::freq_end() const {
+    std::vector<entry>::const_iterator smallest = counter.begin();
+    for (auto it = counter.begin(); it < counter.end(); ++it) {
+        if (int(*smallest) >= int(*it)) {
+            smallest = it;
+        }
+    }
+    smallest += 1;
+    return freq_iterator(smallest, counter.begin(), counter.end());
+}
+
+word_counter::freq_iterator word_counter::freq_iterator::operator++(int) {
+    auto retv = *this;
+    operator++();
+    return retv;
+}
+
+word_counter::freq_iterator& word_counter::freq_iterator::operator++() {
+    std::vector<entry>::const_iterator biggest = it;
+    for (auto i = counter_begin; i < counter_end; ++i) {
+        if (int(*i) > int(*it) || i == it) {
+            continue;
+        } else if (int(*i) == int(*it) && **i > **it) {
+            it = i;
+            return *this;
+        } else if (int(*i) > int(*biggest) || biggest == it) {
+            biggest = i;
+        }
+    }
+    it = biggest;
+    return *this;
+}
+
+entry const& word_counter::freq_iterator::operator*() const { return *it; }
+
+bool word_counter::freq_iterator::operator!=(freq_iterator const& wcit) const {
+    return it != wcit.it;
+}
+
 std::ostream& operator<<(std::ostream& os, word_counter const& wc) {
     for (size_t i = 0; i < wc.counter.size(); ++i) {
         os << wc.counter[i] << '\n';

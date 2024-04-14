@@ -35,9 +35,14 @@ class word_counter {
 
     class freq_iterator {
         std::vector<entry>::const_iterator it;
+        std::vector<entry>::const_iterator counter_begin;
+        std::vector<entry>::const_iterator counter_end;
 
        public:
-        freq_iterator(std::vector<entry>::const_iterator vit) : it(vit) {}
+        freq_iterator(std::vector<entry>::const_iterator vit,
+                      std::vector<entry>::const_iterator cnt_begin,
+                      std::vector<entry>::const_iterator cnt_end)
+            : it(vit), counter_begin(cnt_begin), counter_end(cnt_end) {}
 
         freq_iterator operator++(int);
         freq_iterator& operator++();

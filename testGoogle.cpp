@@ -136,6 +136,14 @@ TEST(word_counter_test, index_operator_word_not_found) {
     ASSERT_THROW(wc["apple"], std::exception);
 }
 
+TEST(word_counter_test, lex_begin) {
+    word_counter wc;
+    std::stringstream ss("hello world dua lipa third may hello auto");
+    wc.add_words(ss);
+    word_counter::lex_iterator lit = wc.lex_begin();
+    ASSERT_EQ(*(*lit), "auto");
+}
+
 TEST(word_counter_test, lex_iterator_test) {
     word_counter wc;
     std::stringstream ss("hello world \n hello auto");
@@ -155,6 +163,30 @@ TEST(word_counter_test, lex_iterator_test_2) {
     word_counter::lex_iterator lit = wc.lex_begin();
     word_counter::lex_iterator lit_2 = wc.lex_end();
     ASSERT_EQ(lit != lit_2, true);
+}
+
+TEST(word_counter_test, freq_begin) {
+    word_counter wc;
+    std::stringstream ss("hello world dua lipa third may hello auto");
+    wc.add_words(ss);
+    word_counter::freq_iterator fit = wc.freq_begin();
+    ASSERT_EQ(*(*fit), "hello");
+}
+
+TEST(word_counter_test, freq_iterator_test) {
+    word_counter wc;
+    std::stringstream ss("hello world dua dua lipa hello auto");
+    wc.add_words(ss);
+    word_counter::freq_iterator fit = wc.freq_begin();
+    ASSERT_EQ(*(*fit), "dua");
+    fit++;
+    ASSERT_EQ(*(*fit), "hello");
+    fit++;
+    ASSERT_EQ(*(*fit), "auto");
+    fit++;
+    ASSERT_EQ(*(*fit), "lipa");
+    fit++;
+    ASSERT_EQ(*(*fit), "world");
 }
 
 TEST(word_counter_test, operator_out) {
