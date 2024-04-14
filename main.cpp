@@ -5,7 +5,7 @@
 #include "word_counter.h"
 
 int main() {
-        word_counter wc;
+    word_counter wc;
     std::ifstream infile("../moby_dick.txt");
     if (!infile.is_open()) {
         std::cerr << "Error: Unable to open file." << std::endl;
