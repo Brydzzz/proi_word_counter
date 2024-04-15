@@ -1,8 +1,7 @@
 .vscode/
 build/
 moby_dick.txt
-moby_dick_frag.txt
-moby_dick_counter_data.txt
-moby_dick_frag_counter_data.txt
+moby_dick_counter_freq_data.txt
+moby_dick_counter_lex_data.txt
 *.pdf
 .clang-format
