@@ -308,3 +308,15 @@ TEST(word_counter_test, operator_in) {
     ASSERT_EQ(int(wc.get_counter()[1]), 2);
     ASSERT_EQ(int(wc.get_counter()[2]), 1);
 }
+
+TEST(word_counter_test, operator_in_2) {
+    word_counter wc;
+    std::stringstream ss("[auto 1][hello 2][world 1]");
+    ss >> wc;
+    ASSERT_EQ(*(wc.get_counter()[0]), "auto");
+    ASSERT_EQ(*(wc.get_counter()[1]), "hello");
+    ASSERT_EQ(*(wc.get_counter()[2]), "world");
+    ASSERT_EQ(int(wc.get_counter()[0]), 1);
+    ASSERT_EQ(int(wc.get_counter()[1]), 2);
+    ASSERT_EQ(int(wc.get_counter()[2]), 1);
+}
