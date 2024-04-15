@@ -11,6 +11,15 @@ void entry::operator++(int) { count++; }
 
 entry::operator int() const { return count; }
 
+entry& entry::operator+=(int number) {
+    if (count + number > 0) {
+        count += number;
+        return *this;
+    } else {
+        throw std::invalid_argument("Add value cannot be negative");
+    }
+}
+
 bool entry::operator<(std::string const& str_value) const {
     return *(*this) < str_value;
 }

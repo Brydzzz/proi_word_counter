@@ -27,6 +27,19 @@ TEST(entry_test, operator_pp) {
     ASSERT_EQ(int(entry), 6);
 }
 
+TEST(entry_test, operator_plus_equals_for_int) {
+    entry entry("żabka", 5);
+    ASSERT_EQ(int(entry), 5);
+    entry += 8;
+    ASSERT_EQ(int(entry), 13);
+}
+
+TEST(entry_test, operator_plus_equals_for_negative_int) {
+    entry entry("żabka", 5);
+    ASSERT_EQ(int(entry), 5);
+    ASSERT_THROW(entry += -9, std::exception);
+}
+
 TEST(entry_test, operator_out) {
     entry entry("żabka", 5);
     std::stringstream ss;
@@ -60,6 +73,15 @@ TEST(word_counter_test, add_word_empty_counter) {
     wc.add_word("hello");
     ASSERT_EQ(*(wc.get_counter()[0]), "hello");
     ASSERT_EQ(int(wc.get_counter()[0]), 1);
+}
+
+TEST(word_counter_test, add_entry) {
+    word_counter wc;
+    entry ent("hello", 5);
+    wc.add_entry(ent);
+    wc.add_entry(ent);
+    ASSERT_EQ(*(wc.get_counter())[0], "hello");
+    ASSERT_EQ(int(wc.get_counter()[0]), 10);
 }
 
 TEST(word_counter_test, add_word_repetition) {
@@ -248,6 +270,22 @@ TEST(word_counter_test, operator_plus_equals_no_repetition) {
     ASSERT_EQ(int(wc1.get_counter()[5]), 1);
     ASSERT_EQ(*(wc1.get_counter()[6]), "world");
     ASSERT_EQ(int(wc1.get_counter()[6]), 2);
+}
+
+TEST(word_counter_test, operator_plus_equals_repetition) {
+    word_counter wc1;
+    std::stringstream words1("hello world hello world");
+    wc1.add_words(words1);
+    word_counter wc2;
+    std::stringstream words2("hello world hello dua");
+    wc2.add_words(words2);
+    wc1 += wc2;
+    ASSERT_EQ(*(wc1.get_counter()[0]), "dua");
+    ASSERT_EQ(int(wc1.get_counter()[0]), 1);
+    ASSERT_EQ(*(wc1.get_counter()[1]), "hello");
+    ASSERT_EQ(int(wc1.get_counter()[1]), 4);
+    ASSERT_EQ(*(wc1.get_counter()[2]), "world");
+    ASSERT_EQ(int(wc1.get_counter()[2]), 3);
 }
 
 TEST(word_counter_test, operator_out) {

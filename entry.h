@@ -15,6 +15,7 @@ class entry {
     std::string const& operator*() const;
     operator int() const;
     bool operator<(std::string const& str_value) const;
+    entry& operator+=(int);
     friend std::ostream& operator<<(std::ostream& os, entry const& entry);
     friend std::istream& operator>>(std::istream& is, entry& ent);
 };
