@@ -226,6 +226,30 @@ TEST(word_counter_test, freq_iterator_test_4) {
     fit++;
 }
 
+TEST(word_counter_test, operator_plus_equals_no_repetition) {
+    word_counter wc1;
+    std::stringstream words1("hello world hello world");
+    wc1.add_words(words1);
+    word_counter wc2;
+    std::stringstream words2("live laugh love dua lipa");
+    wc2.add_words(words2);
+    wc1 += wc2;
+    ASSERT_EQ(*(wc1.get_counter()[0]), "dua");
+    ASSERT_EQ(int(wc1.get_counter()[0]), 1);
+    ASSERT_EQ(*(wc1.get_counter()[1]), "hello");
+    ASSERT_EQ(int(wc1.get_counter()[1]), 2);
+    ASSERT_EQ(*(wc1.get_counter()[2]), "laugh");
+    ASSERT_EQ(int(wc1.get_counter()[2]), 1);
+    ASSERT_EQ(*(wc1.get_counter()[3]), "lipa");
+    ASSERT_EQ(int(wc1.get_counter()[3]), 1);
+    ASSERT_EQ(*(wc1.get_counter()[4]), "live");
+    ASSERT_EQ(int(wc1.get_counter()[4]), 1);
+    ASSERT_EQ(*(wc1.get_counter()[5]), "love");
+    ASSERT_EQ(int(wc1.get_counter()[5]), 1);
+    ASSERT_EQ(*(wc1.get_counter()[6]), "world");
+    ASSERT_EQ(int(wc1.get_counter()[6]), 2);
+}
+
 TEST(word_counter_test, operator_out) {
     word_counter wc;
     std::stringstream words("hello world \n hello auto");

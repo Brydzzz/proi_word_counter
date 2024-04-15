@@ -132,6 +132,14 @@ bool word_counter::freq_iterator::operator!=(freq_iterator const& wcit) const {
     return it != wcit.it;
 }
 
+word_counter& word_counter::operator+=(const word_counter& other) {
+    for (word_counter::lex_iterator it = other.lex_begin();
+         it != other.lex_end(); ++it) {
+        add_entry(*it);
+    }
+    return *this;
+}
+
 std::ostream& operator<<(std::ostream& os, word_counter const& wc) {
     for (size_t i = 0; i < wc.counter.size(); ++i) {
         os << wc.counter[i] << '\n';
