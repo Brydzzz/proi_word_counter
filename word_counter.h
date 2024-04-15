@@ -8,6 +8,7 @@ class word_counter {
 
    public:
     word_counter() = default;
+    word_counter(std::initializer_list<entry> lst);
 
     std::vector<entry> get_counter() const;
 

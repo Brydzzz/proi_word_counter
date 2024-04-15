@@ -55,6 +55,21 @@ TEST(entry_test, operator_in) {
     ASSERT_EQ(int(entry), 5);
 }
 
+TEST(word_counter_test, default_ctor) {
+    word_counter wc;
+    ASSERT_EQ(wc.get_counter().size(), 0);
+}
+
+TEST(word_counter_test, initalizer_list_ctor) {
+    word_counter wc({{"dua", 3}, {"love", 2}, {"lipa", 5}});
+    ASSERT_EQ(*(wc.get_counter()[0]), "dua");
+    ASSERT_EQ(*(wc.get_counter()[1]), "lipa");
+    ASSERT_EQ(*(wc.get_counter()[2]), "love");
+    ASSERT_EQ(int(wc.get_counter()[0]), 3);
+    ASSERT_EQ(int(wc.get_counter()[1]), 5);
+    ASSERT_EQ(int(wc.get_counter()[2]), 2);
+}
+
 TEST(word_counter_test, add_word_typical) {
     word_counter wc;
     wc.add_word("hello");

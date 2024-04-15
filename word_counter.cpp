@@ -3,6 +3,12 @@
 #include <algorithm>
 std::vector<entry> word_counter::get_counter() const { return counter; }
 
+word_counter::word_counter(std::initializer_list<entry> lst) {
+    for (entry ent : lst) {
+        add_entry(ent);
+    }
+}
+
 void word_counter::add_word(std::string const& word) {
     if (word == "") return;
     entry ent(word, 1);
