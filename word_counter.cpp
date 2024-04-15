@@ -39,6 +39,8 @@ void word_counter::add_words(std::istream& is) {
 
 void word_counter::clear() { counter.clear(); }
 
+int word_counter::size() const { return counter.size(); }
+
 entry const& word_counter::operator[](std::string const& word) const {
     auto it = std::lower_bound(counter.begin(), counter.end(), word);
     if (*(*it) == word)

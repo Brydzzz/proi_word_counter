@@ -17,6 +17,8 @@ class word_counter {
     void add_entry(entry const& ent);
     void clear();
 
+    int size() const;
+
     entry const& operator[](std::string const& word) const;
     entry& operator[](std::string const& word);
 

@@ -57,7 +57,7 @@ TEST(entry_test, operator_in) {
 
 TEST(word_counter_test, default_ctor) {
     word_counter wc;
-    ASSERT_EQ(wc.get_counter().size(), 0);
+    ASSERT_EQ(wc.size(), 0);
 }
 
 TEST(word_counter_test, initalizer_list_ctor) {
@@ -153,7 +153,7 @@ TEST(word_counter_test, clear_test) {
     word_counter wc;
     std::stringstream ss("hello world \n hello auto");
     wc.add_words(ss);
-    ASSERT_EQ(wc.get_counter().size(), 3);
+    ASSERT_EQ(wc.size(), 3);
     wc.clear();
     ASSERT_EQ(wc.get_counter().empty(), true);
 }
