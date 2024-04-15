@@ -98,7 +98,6 @@ word_counter::freq_iterator word_counter::freq_end() const {
             smallest = it;
         }
     }
-    smallest += 1;
     return freq_iterator(smallest, counter.begin(), counter.end());
 }
 
@@ -113,9 +112,12 @@ word_counter::freq_iterator& word_counter::freq_iterator::operator++() {
     for (auto i = counter_begin; i < counter_end; ++i) {
         if (int(*i) > int(*it) || i == it) {
             continue;
-        } else if (int(*i) == int(*it) && **i > **it) {
-            it = i;
-            return *this;
+        } else if (int(*i) == int(*it)) {
+            if (**i > **it) {
+                it = i;
+                return *this;
+            }
+            continue;
         } else if (int(*i) > int(*biggest) || biggest == it) {
             biggest = i;
         }

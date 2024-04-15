@@ -189,6 +189,43 @@ TEST(word_counter_test, freq_iterator_test) {
     ASSERT_EQ(*(*fit), "world");
 }
 
+TEST(word_counter_test, freq_iterator_test_2) {
+    word_counter wc;
+    std::stringstream ss("dance all night dance all night i be like ooh all");
+    wc.add_words(ss);
+    std::stringstream out;
+    word_counter::freq_iterator fit = wc.freq_begin();
+    for (; fit != wc.freq_end(); ++fit) {
+        out << *fit;
+    }
+    out << *fit;
+    ASSERT_EQ(out.str(), "[all 3][dance 2][night 2][be 1][i 1][like 1][ooh 1]");
+}
+
+TEST(word_counter_test, freq_iterator_test_3) {
+    word_counter wc;
+    std::stringstream ss(
+        "dance dance world world world open track track zebra zebra zebra");
+    wc.add_words(ss);
+    std::stringstream out;
+    word_counter::freq_iterator fit = wc.freq_begin();
+    for (; fit != wc.freq_end(); ++fit) {
+        out << *fit;
+    }
+    out << *fit;
+    ASSERT_EQ(out.str(), "[world 3][zebra 3][dance 2][track 2][open 1]");
+}
+
+TEST(word_counter_test, freq_iterator_test_4) {
+    word_counter wc;
+    std::stringstream ss("dua dua");
+    wc.add_words(ss);
+    word_counter::freq_iterator fit = wc.freq_begin();
+    word_counter::freq_iterator fit_end = wc.freq_end();
+    ASSERT_EQ(*(*fit), "dua");
+    fit++;
+}
+
 TEST(word_counter_test, operator_out) {
     word_counter wc;
     std::stringstream words("hello world \n hello auto");
