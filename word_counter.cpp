@@ -15,21 +15,13 @@ void word_counter::add_entry(entry const& ent) {
         return;
     }
 
-    for (size_t i = 0; i < counter.size(); ++i) {
-        if (*counter[i] == *ent) {
-            counter[i]++;
-            return;
-        }
+    std::vector<entry>::iterator it =
+        std::lower_bound(counter.begin(), counter.end(), *ent);
+    if (**it == *ent) {
+        *it += int(ent);
+    } else {
+        counter.insert(it, ent);
     }
-
-    int insert_idx = counter.size();
-    for (int i = counter.size() - 1; i >= 0; --i) {
-        if (*counter[i] > *ent)
-            insert_idx = i;
-        else
-            break;
-    }
-    counter.insert(counter.begin() + insert_idx, ent);
 }
 
 void word_counter::add_words(std::istream& is) {
