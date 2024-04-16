@@ -22,4 +22,4 @@ Czas trwania: ~`2ms`
 
 3. **Zapisanie licznika w kolejność od słowa najczęściej wystepującego, do słowa najrzadziej występującego do pliku**
 
-Czas trwania: ~`11500ms`
+Czas trwania: ~`5300ms`
