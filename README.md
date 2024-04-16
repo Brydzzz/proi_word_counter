@@ -12,9 +12,11 @@ Zdecydowałam się dodawać słowa do `word_counter` leksykograficznie (rosnąco
 
 ### Czas działania
 
+Mierzony w `main.cpp` zbudowanym w trybie budowania `Release`
+
 1. **Zliczenie słów z** `moby_dick.txt`
 
-Czas trwania: ~`1050ms`
+Czas trwania: ~`560ms`
 
 2. **Zapisanie licznika w porządku leksykograficznym (rosnąco) do pliku**
 
@@ -22,4 +24,4 @@ Czas trwania: ~`2ms`
 
 3. **Zapisanie licznika w kolejność od słowa najczęściej wystepującego, do słowa najrzadziej występującego do pliku**
 
-Czas trwania: ~`5300ms`
+Czas trwania: ~`1800ms`
