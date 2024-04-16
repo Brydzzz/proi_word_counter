@@ -59,7 +59,6 @@ int main() {
     for (; fit != wc.freq_end(); ++fit) {
         outfile_freq << *fit << std::endl;
     }
-    outfile_freq << *fit << std::endl;
     auto end_time_freq = std::chrono::high_resolution_clock::now();
     auto time_freq = end_time_freq - start_time_freq;
     std::cout << "Word counter was written to file in frequency order.\n";

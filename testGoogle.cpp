@@ -224,6 +224,8 @@ TEST(word_counter_test, freq_iterator_test) {
     ASSERT_EQ(*(*fit), "lipa");
     fit++;
     ASSERT_EQ(*(*fit), "world");
+    fit++;
+    ASSERT_FALSE(fit != wc.freq_end());
 }
 
 TEST(word_counter_test, freq_iterator_test_2) {
@@ -235,7 +237,6 @@ TEST(word_counter_test, freq_iterator_test_2) {
     for (; fit != wc.freq_end(); ++fit) {
         out << *fit;
     }
-    out << *fit;
     ASSERT_EQ(out.str(), "[all 3][dance 2][night 2][be 1][i 1][like 1][ooh 1]");
 }
 
@@ -249,7 +250,6 @@ TEST(word_counter_test, freq_iterator_test_3) {
     for (; fit != wc.freq_end(); ++fit) {
         out << *fit;
     }
-    out << *fit;
     ASSERT_EQ(out.str(), "[world 3][zebra 3][dance 2][track 2][open 1]");
 }
 
@@ -261,6 +261,7 @@ TEST(word_counter_test, freq_iterator_test_4) {
     word_counter::freq_iterator fit_end = wc.freq_end();
     ASSERT_EQ(*(*fit), "dua");
     fit++;
+    ASSERT_EQ(*fit, *fit_end);
 }
 
 TEST(word_counter_test, operator_plus_equals_no_repetition) {

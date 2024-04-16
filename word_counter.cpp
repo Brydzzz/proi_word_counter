@@ -92,13 +92,7 @@ word_counter::freq_iterator word_counter::freq_begin() const {
 }
 
 word_counter::freq_iterator word_counter::freq_end() const {
-    std::vector<entry>::const_iterator smallest = counter.begin();
-    for (auto it = counter.begin(); it < counter.end(); ++it) {
-        if (int(*smallest) >= int(*it)) {
-            smallest = it;
-        }
-    }
-    return freq_iterator(smallest, counter.begin(), counter.end());
+    return freq_iterator(counter.end(), counter.begin(), counter.end());
 }
 
 word_counter::freq_iterator word_counter::freq_iterator::operator++(int) {
@@ -109,6 +103,9 @@ word_counter::freq_iterator word_counter::freq_iterator::operator++(int) {
 
 word_counter::freq_iterator& word_counter::freq_iterator::operator++() {
     std::vector<entry>::const_iterator biggest = it;
+    if (it == counter_end) {
+        return *this;
+    }
     for (auto i = counter_begin; i < counter_end; ++i) {
         if (int(*i) > int(*it) || i == it) {
             continue;
@@ -121,6 +118,10 @@ word_counter::freq_iterator& word_counter::freq_iterator::operator++() {
         } else if (int(*i) > int(*biggest) || biggest == it) {
             biggest = i;
         }
+    }
+    if (biggest == it) {  // didn't find next value
+        it = counter_end;
+        return *this;
     }
     it = biggest;
     return *this;
